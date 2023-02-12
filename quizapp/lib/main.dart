@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Quiz App',
-      home: const MyHomepage(),
+      home: MyHomePage(),
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
@@ -17,14 +17,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomepage extends StatelessWidget {
-  const MyHomepage({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
 
+  @override
+  State<StatefulWidget> createState() {
+    return MyHomepageState();
+  }
+}
+
+class MyHomepageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz App'),
+        title: const Text('Quiz App'),
       ),
       body: const Text('Test'),
     );
