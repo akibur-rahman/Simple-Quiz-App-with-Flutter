@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './questions.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -27,13 +29,60 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomepageState extends State<MyHomePage> {
+  var index = 0;
+
+  void answerPressed() {
+    index++;
+    setState(() {});
+  }
+
+  var questions = [
+    "What is your favorite animal?",
+    "What is your favorite Color?",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quiz App'),
-      ),
-      body: const Text('Test'),
-    );
+        appBar: AppBar(
+          title: const Text('Quiz App'),
+        ),
+        body: SafeArea(
+            child: Container(
+          child: Column(
+            children: [
+              Questions(
+                questions[index],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  child: ElevatedButton(
+                    onPressed: answerPressed,
+                    child: Text("Answer 1"),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  child: ElevatedButton(
+                    onPressed: answerPressed,
+                    child: Text("Answer 2"),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  child: ElevatedButton(
+                    onPressed: answerPressed,
+                    child: Text("Answer 3"),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )));
   }
 }
