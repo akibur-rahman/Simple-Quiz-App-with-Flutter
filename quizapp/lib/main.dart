@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './questions.dart';
+import './answers.dart';
 
 void main() {
   runApp(MyApp());
@@ -57,28 +58,19 @@ class MyHomepageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
-                  child: ElevatedButton(
-                    onPressed: answerPressed,
-                    child: Text("Answer 1"),
-                  ),
+                  child: Answer(answerPressed),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
-                  child: ElevatedButton(
-                    onPressed: answerPressed,
-                    child: Text("Answer 2"),
-                  ),
+                  child: Answer(answerPressed),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
-                  child: ElevatedButton(
-                    onPressed: answerPressed,
-                    child: Text("Answer 3"),
-                  ),
+                  child: Answer(answerPressed),
                 ),
               ),
             ],
