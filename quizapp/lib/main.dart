@@ -34,7 +34,7 @@ class MyHomepageState extends State<MyHomePage> {
 
   void answerPressed() {
     index++;
-    setState(() {});
+    setState(() {}); //updates state
   }
 
   //list of maps to store question and answer options
