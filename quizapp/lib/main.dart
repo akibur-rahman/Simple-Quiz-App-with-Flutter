@@ -37,6 +37,7 @@ class MyHomepageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  //list of maps to store question and answer options
   var questions = [
     "What is your favorite animal?",
     "What is your favorite Color?",
