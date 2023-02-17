@@ -39,8 +39,18 @@ class MyHomepageState extends State<MyHomePage> {
 
   //list of maps to store question and answer options
   var questions = [
-    "What is your favorite animal?",
-    "What is your favorite Color?",
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': ['Black', 'Red', 'Green', 'White'],
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion'],
+    },
+    {
+      'questionText': 'Who\'s your favorite instructor?',
+      'answers': ['Max', 'Max', 'Max', 'Max'],
+    },
   ];
 
   @override
@@ -54,26 +64,11 @@ class MyHomepageState extends State<MyHomePage> {
           child: Column(
             children: [
               Questions(
-                questions[index],
+                questions[index]['questionText'].toString(),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  child: Answer(answerPressed),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  child: Answer(answerPressed),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  child: Answer(answerPressed),
-                ),
-              ),
+              ...(questions[index]['answers'] as List<String>).map((answer) {
+                return Answer(answerPressed, answer);
+              }).toList()
             ],
           ),
         )));
