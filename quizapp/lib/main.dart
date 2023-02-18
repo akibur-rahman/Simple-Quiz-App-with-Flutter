@@ -2,45 +2,22 @@ import 'package:flutter/material.dart';
 
 import './quiz.dart';
 import './result.dart';
+// void main() {
+//   runApp(MyApp());
+// }
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Quiz App',
-      home: MyHomePage(),
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
+class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyHomepageState();
+    // TODO: implement createState
+    return _MyAppState();
   }
 }
 
-class MyHomepageState extends State<MyHomePage> {
-  var _index = 0;
-  int _totalScore = 0;
-
-  void _answerPressed(int score) {
-    _totalScore += score;
-    _index++;
-    setState(() {}); //updates state
-  }
-
-  //list of maps to store question and answer options
-  final _questions = [
+class _MyAppState extends State<MyApp> {
+  final _questions = const [
     {
       'questionText': 'What\'s your favorite color?',
       'answers': [
@@ -69,20 +46,55 @@ class MyHomepageState extends State<MyHomePage> {
       ],
     },
   ];
+  var _questionIndex = 0;
+  var _totalScore = 0;
+
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+  void _answerQuestion(int score) {
+    // var aBool = true;
+    // aBool = false;
+
+    _totalScore += score;
+
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
+    print(_questionIndex);
+    if (_questionIndex < _questions.length) {
+      print('We have more questions!');
+    } else {
+      print('No more questions!');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quiz App'),
+    // var dummy = const ['Hello'];
+    // dummy.add('Max');
+    // print(dummy);
+    // dummy = [];
+    // questions = []; // does not work if questions is a const
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('My First App'),
+        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              )
+            : Result(_totalScore, _resetQuiz),
       ),
-      body: _index < _questions.length
-          ? Quiz(
-              answerPressed: () => _answerPressed,
-              questions: _questions,
-              index: _index,
-            )
-          : Result(),
     );
   }
 }
