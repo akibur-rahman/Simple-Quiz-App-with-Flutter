@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './questions.dart';
-import './answers.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,56 +30,59 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomepageState extends State<MyHomePage> {
-  var index = 0;
+  var _index = 0;
+  int _totalScore = 0;
 
-  void answerPressed() {
-    index++;
+  void _answerPressed(int score) {
+    _totalScore += score;
+    _index++;
     setState(() {}); //updates state
   }
 
   //list of maps to store question and answer options
-  var questions = [
+  final _questions = [
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': ['Black', 'Red', 'Green', 'White'],
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 1},
+      ],
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion'],
+      'answers': [
+        {'text': 'Rabbit', 'score': 3},
+        {'text': 'Snake', 'score': 11},
+        {'text': 'Elephant', 'score': 5},
+        {'text': 'Lion', 'score': 9},
+      ],
     },
     {
       'questionText': 'Who\'s your favorite instructor?',
-      'answers': ['Max', 'Max', 'Max', 'Max'],
+      'answers': [
+        {'text': 'Max', 'score': 1},
+        {'text': 'Max', 'score': 1},
+        {'text': 'Max', 'score': 1},
+        {'text': 'Max', 'score': 1},
+      ],
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Quiz App'),
-        ),
-        body: index < questions.length
-            ? SafeArea(
-                child: Container(
-                  child: Column(
-                    children: [
-                      Questions(
-                        questions[index]['questionText'].toString(),
-                      ),
-                      ...(questions[index]['answers'] as List<String>)
-                          .map((answer) {
-                        return Answer(answerPressed, answer);
-                      }).toList()
-                    ],
-                  ),
-                ),
-              )
-            : Center(
-                child: Text(
-                  'You did it',
-                  style: TextStyle(fontSize: 32),
-                ),
-              ));
+      appBar: AppBar(
+        title: const Text('Quiz App'),
+      ),
+      body: _index < _questions.length
+          ? Quiz(
+              answerPressed: () => _answerPressed,
+              questions: _questions,
+              index: _index,
+            )
+          : Result(),
+    );
   }
 }
