@@ -59,18 +59,27 @@ class MyHomepageState extends State<MyHomePage> {
         appBar: AppBar(
           title: const Text('Quiz App'),
         ),
-        body: SafeArea(
-            child: Container(
-          child: Column(
-            children: [
-              Questions(
-                questions[index]['questionText'].toString(),
-              ),
-              ...(questions[index]['answers'] as List<String>).map((answer) {
-                return Answer(answerPressed, answer);
-              }).toList()
-            ],
-          ),
-        )));
+        body: index < questions.length
+            ? SafeArea(
+                child: Container(
+                  child: Column(
+                    children: [
+                      Questions(
+                        questions[index]['questionText'].toString(),
+                      ),
+                      ...(questions[index]['answers'] as List<String>)
+                          .map((answer) {
+                        return Answer(answerPressed, answer);
+                      }).toList()
+                    ],
+                  ),
+                ),
+              )
+            : Center(
+                child: Text(
+                  'You did it',
+                  style: TextStyle(fontSize: 32),
+                ),
+              ));
   }
 }
